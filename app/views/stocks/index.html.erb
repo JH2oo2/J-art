@@ -1,0 +1,19 @@
+<h1>List of Stock Symbols</h1>
+
+
+  <% @stocks.each do |stock|%>
+      <%= link_to stock_path(stock.id) do %>
+    <div class="stockIndex">
+      <%= stock.index%>
+    </div>
+    <div class = "stockD">
+      <% stock.index%>
+    </div>
+      <%end %>
+    <%end%>
+
+  <div id="stock-data" data-controller="stock-subscription">
+    <h1>
+
+    </h1>
+  </div>
