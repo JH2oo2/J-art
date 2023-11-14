@@ -8,6 +8,6 @@ Rails.application.routes.draw do
 
   resources :stocks, only: [:index, :show, :update]
   get '/api', to: 'stocks#api'
-  post '/update_stock_price/:id', to: 'stocks#price_update'
+  post '/update_stock_price/:index', to: 'stocks#price_update'
 
 end

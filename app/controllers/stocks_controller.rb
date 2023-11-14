@@ -14,10 +14,12 @@ class StocksController < ApplicationController
 
   def show
     @stock = Stock.find(params[:id])
+    finnhub_client = FinnhubRuby::DefaultApi.new
+    @profile = finnhub_client.company_profile2({ symbol: @stock.index })
   end
 
   def price_update
-    @stock = Stock.find(params[:id])
+    @stock = Stock.find_by(index: params[:index])
 
     new_price = params[:stock][:price].to_f
     @stock.update(price: new_price)

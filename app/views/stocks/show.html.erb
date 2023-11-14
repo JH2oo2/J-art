@@ -1,1 +1,9 @@
-<%= @stock.name%>
+<%= image_tag(@profile.logo, alt: 'Logo') %>
+<h1><%= @profile.name%></h1>
+<h3>Ticker: <%= @profile.ticker%></h3>
+<h3>Country: <%= @profile.country%></h3>
+<h3>Industry: <%= @profile.finnhub_industry%></h3>
+<h3>Currency: <%= @profile.currency%></h3>
+<h3>Market Cap: $<%= number_with_delimiter(@profile.market_capitalization.round*1000000) %></h3>
+<h3>Outstanding shares: <%= @profile.share_outstanding%></h3>
+<h3>Stock Price: $<%= @stock.price%></h3>
