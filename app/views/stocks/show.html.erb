@@ -1,4 +1,5 @@
 <%= image_tag(@profile.logo, alt: 'Logo') %>
+<div>
 <h1><%= @profile.name%></h1>
 <h3>Ticker: <%= @profile.ticker%></h3>
 <h3>Country: <%= @profile.country%></h3>
@@ -7,3 +8,15 @@
 <h3>Market Cap: $<%= number_with_delimiter(@profile.market_capitalization.round*1000000) %></h3>
 <h3>Outstanding shares: <%= @profile.share_outstanding%></h3>
 <h3>Stock Price: $<%= @stock.price%></h3>
+</div>
+
+<div>
+  <h3>52 week High: $<%= @financials.metric[:'52WeekHigh']%></h3>
+  <h3>52 week Low: $<%= @financials.metric[:'52WeekLow']%></h3>
+  <h3>Beta: <%= @financials.metric[:'beta']%></h3>
+</div>
+
+<div>
+  <%= link_to 'Buy Stock', buy_stock_path(@stock), data: {turbo_method: :post, turbo_confirm: "Are you sure you want to buy this stock?"}%>
+  <%= link_to 'Sell Stock', sell_stock_path(@stock), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to sell this stock?"}%>
+</div>

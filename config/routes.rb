@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  get "dashboard", to: "pages#dashboard"
+
   resources :stocks, only: [:index, :show, :update]
   get '/api', to: 'stocks#api'
   post '/update_stock_price/:index', to: 'stocks#price_update'
+  post '/buy_stock/:id', to: 'stocks#buy_stock', as: 'buy_stock'
+  delete '/sell_stock/:id', to: 'stocks#sell_stock', as: 'sell_stock'
 
 end
