@@ -1,5 +1,8 @@
 <h1>My dashboard</h1>
 
 <%@stocks.each do |stock|%>
-<%= stock.name%>
+<div>
+  <%= stock.name%>
+  <%= stock.quantity%>
+</div>
 <%end%>

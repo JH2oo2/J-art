@@ -1,22 +1,43 @@
 <%= image_tag(@profile.logo, alt: 'Logo') %>
 <div>
 <h1><%= @profile.name%></h1>
-<h3>Ticker: <%= @profile.ticker%></h3>
+<h3 id="index"><%= @profile.ticker%></h3>
 <h3>Country: <%= @profile.country%></h3>
 <h3>Industry: <%= @profile.finnhub_industry%></h3>
 <h3>Currency: <%= @profile.currency%></h3>
 <h3>Market Cap: $<%= number_with_delimiter(@profile.market_capitalization.round*1000000) %></h3>
 <h3>Outstanding shares: <%= @profile.share_outstanding%></h3>
-<h3>Stock Price: $<%= @stock.price%></h3>
+<h3>Stock Price: $<%= @quote.c%></h3>
 </div>
 
 <div>
   <h3>52 week High: $<%= @financials.metric[:'52WeekHigh']%></h3>
   <h3>52 week Low: $<%= @financials.metric[:'52WeekLow']%></h3>
   <h3>Beta: <%= @financials.metric[:'beta']%></h3>
+  <h3>Dividend Yield: <%= @financials.metric[:'currentDividendYieldTTM']%></h3>
 </div>
 
-<div>
-  <%= link_to 'Buy Stock', buy_stock_path(@stock), data: {turbo_method: :post, turbo_confirm: "Are you sure you want to buy this stock?"}%>
-  <%= link_to 'Sell Stock', sell_stock_path(@stock), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to sell this stock?"}%>
+<div data-controller="toggle-buy">
+  <button data-action="click->toggle-buy#fire" class="btn btn-outline-primary" >Buy Stock</button>
+
+  <div data-toggle-buy-target="togglableElement" class="d-none">
+    <%= simple_form_for(@stock, url: buy_stock_path(@stock), method: :post, remote: true) do |f| %>
+      <%= f.input :quantity, label: "Quantity", placeholder: "Quantity", required: true, input_html: { value: 1 }%>
+      <%= f.button :submit, "Buy Stock", class: "btn btn-primary"  %>
+    <% end %>
+  </div>
+</div>
+
+<div data-controller="toggle-buy">
+    <button data-action="click->toggle-buy#fire" class="btn btn-outline-primary" >Sell Stock</button>
+  <div data-toggle-buy-target="togglableElement" class="d-none">
+    <%= simple_form_for(@stock, url: sell_stock_path(@stock), method: :delete, remote: true) do |f| %>
+      <%= f.input :quantity, label: "Quantity", placeholder: "Quantity", required: true, input_html: { value: 1 }%>
+      <%= f.button :submit, "Sell Stock", class: "btn btn-primary"  %>
+    <% end %>
+  </div>
+</div>
+
+<div data-controller="stock-chart">
+<canvas id="stockChart"></canvas>
 </div>

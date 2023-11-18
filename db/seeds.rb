@@ -34,13 +34,14 @@ top_stocks = [
 ]
 
 Stock.destroy_all
+User.destroy_all
 
 top_stocks.each do |stock_symbol|
   stock = Stock.new(
     name: stock_symbol,
     index: stock_symbol,
-    quantity: rand(1..100),
-    price: rand(1..100)
+    quantity: 0,
+    price: 0
   )
   stock.save
 end

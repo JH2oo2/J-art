@@ -1,13 +1,16 @@
 <h1>List of Stock Symbols</h1>
 
 
+<h3>$<%= current_user.budget.round(2)%></h3>
+<div>
   <% @stocks.each do |stock|%>
       <%= link_to stock_path(stock.id) do %>
     <div class="stockIndex">
       <%= stock.index%>
     </div>
       <%end %>
-    <%end%>
+  <%end%>
+</div>
 
   <div id="stock-data" data-controller="stock-subscription">
     <h1>
